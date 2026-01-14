@@ -1,26 +1,25 @@
 <span align="center">
 
-[![Python](https://img.shields.io/badge/Python-3.11+-blue.svg)](https://www.python.org/downloads/)
+[![Python](https://img.shields.io/badge/Python-3.13+-blue.svg)](https://www.python.org/downloads/)
 [![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
-[![tests](https://github.com/billwallis/python-template/actions/workflows/tests.yaml/badge.svg)](https://github.com/billwallis/python-template/actions/workflows/tests.yaml)
-[![coverage](https://raw.githubusercontent.com/billwallis/python-template/refs/heads/main/coverage.svg)](https://github.com/dbrgn/coverage-badge)
-
 [![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/billwallis/python-template/main.svg)](https://results.pre-commit.ci/latest/github/billwallis/python-template/main)
-[![GitHub last commit](https://img.shields.io/github/last-commit/billwallis/python-template)](https://shields.io/badges/git-hub-last-commit)
+[![pre-commit.ci status](https://results.pre-commit.ci/badge/github/billwallis/dbt-toolbox/main.svg)](https://results.pre-commit.ci/latest/github/billwallis/dbt-toolbox/main)
+[![GitHub last commit](https://img.shields.io/github/last-commit/billwallis/dbt-toolbox)](https://shields.io/badges/git-hub-last-commit)
 
 </span>
 
 ---
 
-# Python Template Repo
+# dbt Toolbox
 
-Not for public consumption; this is just for me (@billwallis).
+Toolbox to facilitate dbt work.
 
-After copying, find and replace on:
+This is my personal alternative to tools like:
 
-- `python-template` -> new repo name
-- `python_template` -> new package name
+- [dbt-codegen](https://github.com/dbt-labs/dbt-codegen)
+- [dbt-coves](https://github.com/datacoves/dbt-coves)
+
+I'm building this alternative just to customise it to my own preferences.
 
 ## Contributing
 

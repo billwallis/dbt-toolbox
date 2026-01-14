@@ -1,4 +1,4 @@
-from python_template import main
+from dbt_toolbox import main
 
 
 def test__main_can_be_called():
