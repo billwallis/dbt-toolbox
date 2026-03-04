@@ -1,7 +1,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/pyproject.json
 
 [build-system]
-requires = ["uv_build>=0.8.2,<0.9.0"]
+requires = ["uv_build>=0.8"]
 build-backend = "uv_build"
 
 [project]
@@ -15,8 +15,7 @@ dependencies = []
 
 [dependency-groups]
 dev = [
-    "coverage-badge>=1.1.2",
-    "poethepoet>=0.40.0",
+    "poethepoet>=0.41.0",
     "pre-commit>=4.5.1",
 ]
 test = [
@@ -26,30 +25,44 @@ test = [
 
 
 [tool.uv]
-required-version = ">=0.9,<1.0"
+required-version = ">=0.8"
 default-groups = "all"
 
 
 [tool.poe]
 verbosity = -1
+envfile.optional = ".env"
 
 [tool.poe.tasks]
 install.shell = """
     uv sync --refresh
-    pre-commit install --install-hooks
+    uv run pre-commit install --install-hooks
 """
-update.shell = """
+upgrade.shell = """
     uv sync --refresh --upgrade
-    pre-commit autoupdate
-    pre-commit install --install-hooks
+    uv run pre-commit autoupdate
 """
-lint.shell = """
+test = "uv run pytest -vvv"
+
+[tool.poe.tasks.lint]
+control.expr = "sys.platform"
+
+[[tool.poe.tasks.lint.switch]]
+case = "win32"
+shell = """
+    echo '=== pre-commit checks ==='
+    SKIP=identity uv run pre-commit run --all-files --hook-stage pre-commit
+    echo '=== pre-push checks ==='
+    SKIP=identity uv run pre-commit run --all-files --hook-stage pre-push
+"""
+
+[[tool.poe.tasks.lint.switch]]
+shell = """
     echo '\\033[0;34mpre-commit checks\\033[0m'
-    SKIP=identity pre-commit run --all-files --hook-stage pre-commit
+    SKIP=identity uv run pre-commit run --all-files --hook-stage pre-commit
     echo '\\033[0;34mpre-push checks\\033[0m'
-    SKIP=identity pre-commit run --all-files --hook-stage pre-push
+    SKIP=identity uv run pre-commit run --all-files --hook-stage pre-push
 """
-test = "uv run pytest -v"
 
 
 [tool.pytest.ini_options]
