@@ -11,7 +11,10 @@ description = "Toolbox to facilitate dbt work."
 authors = [{name = "billwallis"}]
 readme = "README.md"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "ruamel-yaml>=0.19.1",
+    "wordninja>=2.0.0",
+]
 
 [dependency-groups]
 dev = [
