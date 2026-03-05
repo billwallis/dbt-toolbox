@@ -1,79 +1,26 @@
-import textwrap
-
 import pytest
 
 from dbt_toolbox.generate import staging
+from tests.dbt_toolbox.generate.fixtures import jaffle_shop__orderlines
 
 
-def test__model__file_name_includes_source_and_object():
-    model = staging.Model(
-        source_name="jaffle_shop",
-        model_name="orderlines",
-        columns=[],
-    )
-
-    assert model.file_name == "stg_jaffle_shop__order_lines"
+@pytest.mark.parametrize(
+    "model, expected_file_name",
+    [
+        (jaffle_shop__orderlines.model, jaffle_shop__orderlines.file_name),
+    ],
+)
+def test__model__file_name_includes_source_and_object(
+    model: staging.Model,
+    expected_file_name: str,
+):
+    assert model.file_name == expected_file_name
 
 
 @pytest.mark.parametrize(
     "model, expected_sql",
     [
-        (
-            staging.Model(
-                source_name="jaffle_shop",
-                model_name="orderlines",
-                columns=[
-                    staging.Column(
-                        column_name="id",
-                        data_type="text",
-                        ordinal_position=1,
-                    ),
-                    staging.Column(
-                        column_name="type",
-                        data_type="text",
-                        ordinal_position=2,
-                    ),
-                    staging.Column(
-                        column_name="amount",
-                        data_type="numeric",
-                        ordinal_position=3,
-                    ),
-                    staging.Column(
-                        column_name="createddate",
-                        data_type="date",
-                        ordinal_position=4,
-                    ),
-                    staging.Column(
-                        column_name="updateddate",
-                        data_type="date",
-                        ordinal_position=5,
-                    ),
-                    staging.Column(
-                        column_name="_airbyte_raw_id",
-                        data_type="date",
-                        ordinal_position=6,
-                    ),
-                ],
-            ),
-            textwrap.dedent(
-                """\
-                with
-
-                order_lines as (
-                    select
-                        id,
-                        type,
-                        amount,
-                        createddate as created_date,
-                        updateddate as updated_date,
-                        _airbyte_raw_id
-                    from {{ source('jaffle_shop', 'orderlines') }}
-                )
-
-                select * from order_lines
-                """
-            ),
-        ),
+        (jaffle_shop__orderlines.model, jaffle_shop__orderlines.sql),
     ],
 )
 def test__generate_staging_model_sql__happy_path(
@@ -86,105 +33,7 @@ def test__generate_staging_model_sql__happy_path(
 @pytest.mark.parametrize(
     "model, expected_yaml",
     [
-        (
-            staging.Model(
-                source_name="jaffle_shop",
-                model_name="orderlines",
-                columns=[
-                    staging.Column(
-                        column_name="id",
-                        data_type="text",
-                        ordinal_position=1,
-                    ),
-                    staging.Column(
-                        column_name="type",
-                        data_type="text",
-                        ordinal_position=2,
-                    ),
-                    staging.Column(
-                        column_name="amount",
-                        data_type="numeric",
-                        ordinal_position=3,
-                    ),
-                    staging.Column(
-                        column_name="createddate",
-                        data_type="date",
-                        ordinal_position=4,
-                    ),
-                    staging.Column(
-                        column_name="updateddate",
-                        data_type="date",
-                        ordinal_position=5,
-                    ),
-                    staging.Column(
-                        column_name="_airbyte_raw_id",
-                        data_type="text",
-                        ordinal_position=6,
-                    ),
-                ],
-            ),
-            # textwrap.dedent(
-            #     """\
-            #     name: order_lines
-            #     description:
-            #     columns:
-            #       - name: id
-            #         data_type: text
-            #         description:
-            #       - name: type
-            #         data_type: text
-            #         description:
-            #       - name: amount
-            #         data_type: numeric
-            #         description:
-            #       - name: created_date
-            #         data_type: date
-            #         description:
-            #       - name: updated_date
-            #         data_type: date
-            #         description:
-            #       - name: _airbyte_raw_id
-            #         data_type: text
-            #         description:
-            #     """
-            # ),
-            {
-                "name": "order_lines",
-                "description": None,
-                "columns": [
-                    {
-                        "name": "id",
-                        "data_type": "text",
-                        "description": None,
-                    },
-                    {
-                        "name": "type",
-                        "data_type": "text",
-                        "description": None,
-                    },
-                    {
-                        "name": "amount",
-                        "data_type": "numeric",
-                        "description": None,
-                    },
-                    {
-                        "name": "created_date",
-                        "data_type": "date",
-                        "description": None,
-                    },
-                    {
-                        "name": "updated_date",
-                        "data_type": "date",
-                        "description": None,
-                    },
-                    {
-                        "name": "_airbyte_raw_id",
-                        "data_type": "text",
-                        "description": None,
-                    },
-                ],
-            },
-        ),
+        (jaffle_shop__orderlines.model, jaffle_shop__orderlines.yaml),
     ],
 )
 def test__generate_staging_model_yaml__happy_path(
