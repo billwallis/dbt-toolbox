@@ -100,7 +100,7 @@ repos:
     hooks:
       - id: pytest
         name: Run unit tests
-        entry: uv run pytest tests --quiet --cov-report=xml
+        entry: uv run pytest tests --quiet --cov src --cov-report xml
         stages: ["pre-push"]
         language: unsupported
         pass_filenames: false
