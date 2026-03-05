@@ -22,4 +22,4 @@ jobs:
         run: uv sync --all-groups
 
       - name: ✅ Run unit tests
-        run: poe test
+        run: uv run poe test
