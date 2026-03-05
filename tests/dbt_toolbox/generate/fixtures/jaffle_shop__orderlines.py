@@ -85,7 +85,7 @@ sql = textwrap.dedent(
 #         description:
 #     """
 yaml = {
-    "name": "order_lines",
+    "name": "stg_jaffle_shop__order_lines",
     "description": None,
     "columns": [
         {
