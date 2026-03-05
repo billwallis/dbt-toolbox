@@ -70,7 +70,7 @@ def generate_staging_model_sql(model: Model) -> str:
 
 def generate_staging_model_yaml(model: Model) -> dict:
     return {
-        "name": model.alias,
+        "name": model.file_name,
         "description": None,
         "columns": [
             {

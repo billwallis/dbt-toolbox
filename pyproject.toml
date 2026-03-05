@@ -46,7 +46,7 @@ upgrade.shell = """
     uv sync --refresh --upgrade
     uv run pre-commit autoupdate
 """
-test = "uv run pytest -vvv"
+test = "uv run pytest -vvv --cov src"
 
 [tool.poe.tasks.lint]
 control.expr = "sys.platform"
@@ -70,8 +70,7 @@ shell = """
 
 
 [tool.pytest.ini_options]
-#addopts = "--cov=src --cov-fail-under=80"
-addopts = "--cov=src"
+#addopts = "--cov-fail-under 80"
 testpaths = ["tests"]
 
 
