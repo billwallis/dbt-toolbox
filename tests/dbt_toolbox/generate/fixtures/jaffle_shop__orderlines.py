@@ -6,7 +6,7 @@ file_name = "stg_jaffle_shop__order_lines"
 
 model = staging.Model(
     source_name="jaffle_shop",
-    model_name="orderlines",
+    model_name="OrderLines",
     columns=[
         staging.Column(
             column_name="id",
@@ -34,9 +34,14 @@ model = staging.Model(
             ordinal_position=5,
         ),
         staging.Column(
-            column_name="_airbyte_raw_id",
+            column_name='"Modified By"',
             data_type="text",
             ordinal_position=6,
+        ),
+        staging.Column(
+            column_name="_airbyte_raw_id",
+            data_type="text",
+            ordinal_position=7,
         ),
     ],
 )
@@ -52,6 +57,7 @@ sql = textwrap.dedent(
             amount,
             createddate as created_date,
             updateddate as updated_date,
+            "Modified By" as modified_by,
             _airbyte_raw_id
         from {{ source('jaffle_shop', 'orderlines') }}
     )
@@ -111,6 +117,11 @@ yaml = {
         {
             "name": "updated_date",
             "data_type": "date",
+            "description": None,
+        },
+        {
+            "name": "modified_by",
+            "data_type": "text",
             "description": None,
         },
         {

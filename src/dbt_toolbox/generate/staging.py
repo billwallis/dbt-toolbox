@@ -10,6 +10,8 @@ import textwrap
 
 import wordninja
 
+from dbt_toolbox import utils
+
 
 def _split_name(name: str) -> str:
     # TODO: Should be replaced with some injectable conditions
@@ -27,7 +29,10 @@ class Column:
     alias: str = dataclasses.field(init=False)
 
     def __post_init__(self) -> None:
-        self.alias = _split_name(self.column_name)
+        self.column_name = utils.lower_identifier(self.column_name)
+        self.data_type = self.data_type.lower()
+        self.ordinal_position = int(self.ordinal_position)
+        self.alias = _split_name(self.column_name).lower()
 
 
 @dataclasses.dataclass
@@ -38,7 +43,8 @@ class Model:
     alias: str = dataclasses.field(init=False)
 
     def __post_init__(self) -> None:
-        self.alias = _split_name(self.model_name)
+        self.model_name = utils.lower_identifier(self.model_name)
+        self.alias = _split_name(self.model_name).lower()
 
     @property
     def file_name(self) -> str:

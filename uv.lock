@@ -83,7 +83,7 @@ wheels = [
 
 [[package]]
 name = "dbt-toolbox"
-version = "0.0.0"
+version = "0.0.1"
 source = { editable = "." }
 dependencies = [
     { name = "ruamel-yaml" },
