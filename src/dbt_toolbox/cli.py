@@ -32,11 +32,11 @@ def _generate(args: argparse.Namespace) -> int:
 
     models_json = collections.defaultdict(list)
     for line in _read_csv_as_json(from_csv_path):
-        models_json[line["table_name"].lower()].append(
+        models_json[line["table_name"]].append(
             {
-                "column_name": line["column_name"].lower(),
-                "data_type": line["data_type"].lower(),
-                "ordinal_position": int(line["ordinal_position"]),
+                "column_name": line["column_name"],
+                "data_type": line["data_type"],
+                "ordinal_position": line["ordinal_position"],
             }
         )
 
